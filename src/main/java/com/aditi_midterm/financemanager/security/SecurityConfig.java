@@ -39,6 +39,7 @@ public class SecurityConfig {
                         // BUT: /me must be protected (it uses access token)
                         .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refresh", "/api/auth/logout")
                         .permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                         // everything else requires access token
                         .anyRequest().authenticated()
