@@ -28,7 +28,6 @@ public class TransactionDataLoading implements CommandLineRunner {
     if (transactionRepository.count() > 0) return;
 
     Account cash = accountRepository.findByName("Cash Wallet").orElse(null);
-
     Account bank = accountRepository.findByName("ABA Bank").orElse(null);
 
     if (cash == null || bank == null) {

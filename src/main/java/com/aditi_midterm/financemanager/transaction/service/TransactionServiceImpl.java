@@ -6,6 +6,7 @@ import com.aditi_midterm.financemanager.exception.ResourceNotFoundException;
 import com.aditi_midterm.financemanager.transaction.Transaction;
 import com.aditi_midterm.financemanager.transaction.TransactionMapper;
 import com.aditi_midterm.financemanager.transaction.TransactionRepository;
+import com.aditi_midterm.financemanager.transaction.TransactionType;
 import com.aditi_midterm.financemanager.transaction.dto.AddTransactionRequest;
 import com.aditi_midterm.financemanager.transaction.dto.Pagination;
 import com.aditi_midterm.financemanager.transaction.dto.TransactionResponse;
@@ -61,19 +62,13 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   @Override
-  public TransactionResponse addTransaction(AddTransactionRequest addTransactionRequest) {
-    Account account =
-        accountRepository
-            .findById(addTransactionRequest.getAccountId())
-            .orElseThrow(
-                () ->
-                    new ResourceNotFoundException(
-                        "Account", "id", addTransactionRequest.getAccountId()));
-    Transaction transaction = transactionMapper.toTransaction(addTransactionRequest);
-    transaction.setAccount(account);
+  public TransactionResponse addIncome(AddTransactionRequest request) {
+    return addTransactionByType(request, TransactionType.INCOME);
+  }
 
-    Transaction savedTransaction = transactionRepository.save(transaction);
-    return transactionMapper.toTransactionResponse(savedTransaction);
+  @Override
+  public TransactionResponse addExpense(AddTransactionRequest request) {
+    return addTransactionByType(request, TransactionType.EXPENSE);
   }
 
   @Override
@@ -97,5 +92,22 @@ public class TransactionServiceImpl implements TransactionService {
             .findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Transaction", "id", id));
     transactionRepository.delete(transaction);
+  }
+
+  private TransactionResponse addTransactionByType(
+      AddTransactionRequest request, TransactionType type) {
+    Account account =
+        accountRepository
+            .findById(request.getAccountId())
+            .orElseThrow(
+                () ->
+                    new ResourceNotFoundException(
+                        "Account", "id", request.getAccountId()));
+    Transaction transaction = transactionMapper.toTransaction(request);
+    transaction.setType(type);
+    transaction.setAccount(account);
+
+    Transaction saved = transactionRepository.save(transaction);
+    return transactionMapper.toTransactionResponse(saved);
   }
 }

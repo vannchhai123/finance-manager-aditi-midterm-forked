@@ -13,7 +13,8 @@ public interface TransactionService {
 
   TransactionResponse getTransactionById(Long id);
 
-  TransactionResponse addTransaction(AddTransactionRequest addTransactionRequest);
+  TransactionResponse addIncome(AddTransactionRequest addTransactionRequest);
+  TransactionResponse addExpense(AddTransactionRequest addTransactionRequest);
 
   TransactionResponse updateTransaction(Long id, UpdateTransactionRequest updateTransactionRequest);
 
