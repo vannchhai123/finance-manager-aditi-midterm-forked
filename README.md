@@ -51,12 +51,7 @@ This project is developed for academic mid-term purposes and focuses on:
 ## Database
 
 - PostgreSQL
-- Neon (Cloud PostgreSQL)
 - JPA / Hibernate ORM
-
-## API Documentation
-
-- Swagger / OpenAPI
 
 ## Deployment
 
