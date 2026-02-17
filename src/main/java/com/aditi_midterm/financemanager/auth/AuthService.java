@@ -53,7 +53,7 @@ public class AuthService {
     // ------------------------
     // Register
     // ------------------------
-    public void register(RegisterRequest request) {
+    public String register(RegisterRequest request) {
         String email = request.email().trim().toLowerCase();
 
         if (!request.password().equals(request.confirmPassword())) {
