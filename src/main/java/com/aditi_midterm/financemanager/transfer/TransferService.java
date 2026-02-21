@@ -20,55 +20,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TransferService {
 
-  private final TransactionRepository transactionRepository;
-  private final TransferRepository transferRepository;
-  private final AccountRepository accountRepository;
-  private final TransferMapper transferMapper;
+    private final TransactionRepository transactionRepository;
+    private final TransferRepository transferRepository;
+    private final AccountRepository accountRepository;
+    private final TransferMapper transferMapper;
 
-<<<<<<< HEAD
-  @Transactional
-  public TransferResponse transfer(TransferRequest request) {
-
-    if (request.getFromAccountId().equals(request.getToAccountId())) {
-      throw new IllegalArgumentException("Cannot transfer to same account");
-    }
-
-    Account from =
-        accountRepository
-            .findById(request.getFromAccountId())
-            .orElseThrow(
-                () -> new ResourceNotFoundException("Account", "id", request.getFromAccountId()));
-
-    Account to =
-        accountRepository
-            .findById(request.getToAccountId())
-            .orElseThrow(
-                () -> new ResourceNotFoundException("Account", "id", request.getToAccountId()));
-
-    Transfer transfer = transferMapper.toTransfer(request, from, to);
-    transferRepository.save(transfer);
-
-    Transaction expense =
-        Transaction.builder()
-            .account(from)
-            .type(TransactionType.EXPENSE)
-            .amount(request.getAmount())
-            .note("Transfer to account " + to.getId())
-            .build();
-
-    Transaction income =
-        Transaction.builder()
-            .account(to)
-            .type(TransactionType.INCOME)
-            .amount(request.getAmount())
-            .note("Transfer from account " + from.getId())
-            .build();
-
-    transactionRepository.saveAll(List.of(expense, income));
-
-    return transferMapper.toResponse(transfer);
-  }
-=======
 
 
     @Transactional
@@ -123,5 +79,4 @@ public class TransferService {
         return transferMapper.toResponse(transfer);
     }
 
->>>>>>> b35b615dbcb19d507e39803e66e5fe647ad91bd2
 }
