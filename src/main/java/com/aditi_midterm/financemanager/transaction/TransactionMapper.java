@@ -13,15 +13,18 @@ public interface TransactionMapper {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "account", ignore = true)
   @Mapping(target = "createdAt", ignore = true)
-  @Mapping(source = "transactionType", target = "type")
+  @Mapping(source = "transactionDate", target = "transactionDate")
   Transaction toTransaction(AddTransactionRequest addTransactionRequest);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "account", ignore = true)
-  @Mapping(target = "createdAt", ignore = true)
+  @Mapping(target =  "createdAt", ignore = true)
   @Mapping(source = "transactionType", target = "type")
+  @Mapping(source = "transactionDate", target = "transactionDate")
   void updateEntity(
-      UpdateTransactionRequest updateTransactionRequest, @MappingTarget Transaction transaction);
+          UpdateTransactionRequest updateTransactionRequest,
+          @MappingTarget Transaction transaction
+  );
 
   @Mapping(source = "type", target = "transactionType")
   @Mapping(source = "account.id", target = "accountId")
