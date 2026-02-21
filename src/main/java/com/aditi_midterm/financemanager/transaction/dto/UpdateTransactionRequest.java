@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 public class UpdateTransactionRequest {
@@ -20,4 +21,7 @@ public class UpdateTransactionRequest {
 
     @Size(max = 500)
     private String note;
+
+    @NotNull
+    private LocalDate transactionDate;
 }

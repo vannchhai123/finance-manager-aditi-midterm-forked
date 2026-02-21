@@ -47,12 +47,21 @@ public class TransactionController {
     return ResponseEntity.ok(response);
   }
 
-  @PostMapping
-  public ResponseEntity<TransactionResponse> createTransaction(
-      @Valid @RequestBody AddTransactionRequest addTransactionRequest,
-      @AuthenticationPrincipal UserPrincipal me) {
-    TransactionResponse response =
-        transactionService.addTransaction(addTransactionRequest, me.getId());
+  @PostMapping("/income")
+  public ResponseEntity<TransactionResponse> addIncome(
+          @Valid @RequestBody AddTransactionRequest request,
+          @AuthenticationPrincipal UserPrincipal me
+  ) {
+    TransactionResponse response = transactionService.addIncome(request, me.getId());
+    return ResponseEntity.ok(response);
+  }
+
+  @PostMapping("/expense")
+  public ResponseEntity<TransactionResponse> addExpense(
+          @Valid @RequestBody AddTransactionRequest request,
+          @AuthenticationPrincipal UserPrincipal me
+  ) {
+    TransactionResponse response = transactionService.addExpense(request, me.getId());
     return ResponseEntity.ok(response);
   }
 

@@ -7,12 +7,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 public class AddTransactionRequest {
-
-    @NotNull
-    private TransactionType transactionType;
 
     @NotNull
     @DecimalMin(value = "0.01")
@@ -23,4 +21,7 @@ public class AddTransactionRequest {
 
     @NotNull
     private Long accountId;
+
+    @NotNull
+    private LocalDate transactionDate;
 }
