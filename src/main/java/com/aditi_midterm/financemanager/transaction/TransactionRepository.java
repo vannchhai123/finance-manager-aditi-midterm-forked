@@ -32,4 +32,19 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
          and t.type = :type
        """)
     BigDecimal sumAmountByUserAndType(@Param("userId") Long userId, @Param("type") TransactionType type);
+
+    @Query("""
+       select t from Transaction t
+       where t.account.user.id = :userId
+         and (:account is null or t.account.id = :account)
+         and (:type is null or t.type = :type)
+         and (:search is null or lower(t.note) like lower(concat('%', cast(:search as string), '%')))
+    """)
+    Page<Transaction> findWithFilters(
+            @Param("userId") Long userId,
+            @Param("account") Long account,
+            @Param("type") TransactionType type,
+            @Param("search") String search,
+            Pageable pageable
+    );
 }
