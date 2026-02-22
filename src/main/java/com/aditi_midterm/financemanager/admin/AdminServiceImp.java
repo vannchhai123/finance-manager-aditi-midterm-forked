@@ -28,8 +28,9 @@ public class AdminServiceImp implements AdminService {
     private final PasswordEncoder passwordEncoder;
     private final AdminMapper adminMapper;
 
+    //=============== Get User =====================
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize( "hasRole('ADMIN')" )
     public ApiResponse<Pagination<AdminResponse>> getAllUser(Pageable pageable, String role) {
         Page<User> page;
         if (role == null || role.isEmpty()) {
@@ -59,8 +60,9 @@ public class AdminServiceImp implements AdminService {
         return ApiResponse.success(pagination, "Users fetches successfully");
     }
 
+    //=============== Toggle User Role =====================
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize( "hasRole('ADMIN')" )
     public ApiResponse<AdminResponse> toggleUserRole(Long id) {
         // Find user by ID
         User user = adminRepository.findById(id)
@@ -78,8 +80,9 @@ public class AdminServiceImp implements AdminService {
         return ApiResponse.success(response, "User role toggle successfully");
     }
 
+    //=============== Create User =====================
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize( "hasRole('ADMIN')")
     public ApiResponse<User> createUser(UserRequestDto userRequestDto) {
         // check if email already exists
         Optional<User> user = adminRepository.findByEmail(userRequestDto.email());
