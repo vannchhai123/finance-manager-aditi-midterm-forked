@@ -12,16 +12,15 @@ import java.time.LocalDate;
 @Data
 public class UpdateTransactionRequest {
 
-    @NotNull
-    private TransactionType transactionType;
+  @NotNull private TransactionType transactionType;
 
-    @NotNull
-    @DecimalMin(value = "0.01")
-    private BigDecimal amount;
+  @NotNull
+  @DecimalMin(value = "0.01")
+  private BigDecimal amount;
 
-    @Size(max = 500)
-    private String note;
+  @Size(max = 500)
+  private String note;
 
-    @NotNull
-    private LocalDate transactionDate;
+  @NotNull
+  private LocalDate transactionDate;
 }

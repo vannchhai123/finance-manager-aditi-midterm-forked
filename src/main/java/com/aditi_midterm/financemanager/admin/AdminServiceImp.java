@@ -94,11 +94,11 @@ public class AdminServiceImp implements AdminService {
             String hashPassword = passwordEncoder.encode(userRequestDto.passwordHash());
 
             User newuser = User.builder()
-                    .email(userRequestDto.email())
-                    .passwordHash(hashPassword)
-                    .role(Role.valueOf(userRequestDto.role().toUpperCase()))
-                    .isActive(userRequestDto.isActive()  != null ? userRequestDto.isActive() : true)
-                    .build();
+                .email(userRequestDto.email())
+                .passwordHash(hashPassword)
+                .role(Role.valueOf(userRequestDto.role().toUpperCase()))
+                .isActive(userRequestDto.isActive()  != null ? userRequestDto.isActive() : true)
+                .build();
 
             LOGGER.info(() -> "new user info: "+ newuser);
 
